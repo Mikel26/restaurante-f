@@ -1,0 +1,355 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 200px;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <!-- <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Hello Jesse</h1>
+        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+        <a href="#!" class="btn btn-info">Edit profile</a>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-content shadow">
+        <div class="card-header bg-secondary border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Ingresar nuevo producto</h3>
+            </div>
+            <div class="col-2 text-right">
+              <button (click)="verTodo()" [disabled]="loading == true" class="btn btn-sm btn-primary">Ver todos</button>
+            </div>
+            <div class="col-2 text-right">
+              <button (click)="registrarProd()" [disabled]="loading == true"
+                class="btn btn-sm btn-success">Registrar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <!-- <h6 class="heading-small text-muted mb-4">Información del producto</h6> -->
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-codigointerno">Cod. Interno</label>
+                    <input type="text" [(ngModel)]="codigointerno" [ngModelOptions]="{standalone: true}"
+                      id="input-codigointerno" class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-codigobarra">Cod. Barra</label>
+                    <input type="text" [(ngModel)]="codigobarra" [ngModelOptions]="{standalone: true}"
+                      id="input-codigobarra" class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-usaetiqueta">Usa etiqueta
+                      <input type="checkbox" [(ngModel)]="usaetiqueta" [ngModelOptions]="{standalone: true}"
+                        id="input-usaetiqueta" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-10">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-descripcion">Descripción</label>
+                    <input type="text" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}"
+                      placeholder="Nombre del producto" id="input-descripcion"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-diasxllegarproducto">Días a llegar</label>
+                    <input type="text" [(ngModel)]="diasxllegarproducto" [ngModelOptions]="{standalone: true}"
+                      placeholder="Nombre del producto" id="input-diasxllegarproducto"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-pvp1">PVP 1</label>
+                    <input type="number" [(ngModel)]="pvp1" [ngModelOptions]="{standalone: true}" id="input-pvp1"
+                      class="form-control form-control-alternative" (keypress)="calcularCostoPromedio()"
+                      (change)="calcularCostoPromedio()">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-pvp2">PVP 2</label>
+                    <input type="number" [(ngModel)]="pvp2" [ngModelOptions]="{standalone: true}" id="input-pvp2"
+                      class="form-control form-control-alternative" (keypress)="calcularCostoPromedio()"
+                      (change)="calcularCostoPromedio()">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-ucosto">Último costo de compra</label>
+                    <input type="number" [(ngModel)]="ucosto" [ngModelOptions]="{standalone: true}" id="input-ucosto"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-exis_minima">Ex. Mínima</label>
+                    <input type="number" [(ngModel)]="exis_minima" [ngModelOptions]="{standalone: true}"
+                      id="input-exis_minima" class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-exis_maxima">Ex. Máxima</label>
+                    <input type="number" [(ngModel)]="exis_maxima" [ngModelOptions]="{standalone: true}"
+                      id="input-exis_maxima" class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-tieneiva">Tiene IVA
+                      <input type="checkbox" [(ngModel)]="tieneiva" [ngModelOptions]="{standalone: true}"
+                        id="input-tieneiva" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-recargariva">Recarga IVA
+                      <input type="checkbox" [(ngModel)]="recargariva" [ngModelOptions]="{standalone: true}"
+                        id="input-recargariva" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-tieneice">Tiene ICE
+                      <input type="checkbox" [(ngModel)]="tieneice" [ngModelOptions]="{standalone: true}"
+                        id="input-tieneice" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-recargarice">Recarga ICE
+                      <input type="checkbox" [(ngModel)]="recargarice" [ngModelOptions]="{standalone: true}"
+                        id="input-recargarice" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-esservicio">Es servicio
+                      <input type="checkbox" [(ngModel)]="esservicio" [ngModelOptions]="{standalone: true}"
+                        id="input-esservicio" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-porcentajeice">Pctj. ICE </label>
+                    <input type="number" [(ngModel)]="porcentajeice" [ngModelOptions]="{standalone: true}"
+                      id="input-porcentajeice" class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-codmedida">Medida</label>
+                    <select [(ngModel)]="codmedida" [ngModelOptions]="{standalone: true}">
+                      <option value=1 selected>kilos</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="categoria">Categoría
+                      <select [(ngModel)]="idcategoria" [ngModelOptions]="{standalone: true}">
+                        <option value=1 selected>bebidas</option>
+                      </select>
+                    </label>
+                    <!-- <ng-select [items]="cars" bindLabel="name" bindValue="id" [(ngModel)]="selectedCar" [ngModelOptions]="{standalone: true}">
+                    </ng-select> -->
+                    <!-- <input type="text" id="input-email" class="form-control form-control-alternative"> -->
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-codmarca">Marca</label>
+                    <!-- <input type="text" [(ngModel)]="codmarca" [ngModelOptions]="{standalone: true}" id="input-codmarca"
+                      class="form-control form-control-alternative"> -->
+                    <select [(ngModel)]="codmarca" [ngModelOptions]="{standalone: true}">
+                      <option value=1 selected>Nacional</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-produccionxfacturar">Producción al facturar
+                      <input type="checkbox" [(ngModel)]="produccionxfacturar" [ngModelOptions]="{standalone: true}"
+                        id="input-produccionxfacturar" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-multiplos">Múltiplos</label>
+                    <input type="number" [(ngModel)]="multiplos" [ngModelOptions]="{standalone: true}"
+                      id="input-multiplos" class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-costopromedio">Costo promedio</label>
+                    <input type="number" readonly [(ngModel)]="costopromedio" [ngModelOptions]="{standalone: true}"
+                      id="input-costopromedio" class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-imagen">Imagen</label>
+                    <input type="file" [(ngModel)]="imagen" [ngModelOptions]="{standalone: true}" accept="image/*"
+                      id="input-imagen" class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="row justify-content-center">
+                    <img src="./../../../assets/img/brand/blue.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Address -->
+            <h6 class="heading-small text-muted mb-4">Medidas</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-dimalto">Alto(cm)</label>
+                    <input type="number" (keypress)="calcularVolumen(); calcularArea()" placeholder="0"
+                      (change)="calcularVolumen(); calcularArea()" [(ngModel)]="dimalto"
+                      [ngModelOptions]="{standalone: true}" id="input-dimalto"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-dimlargo">Largo(cm)</label>
+                    <input type="number" (keypress)="calcularVolumen(); calcularArea()" placeholder="0"
+                      (change)="calcularVolumen(); calcularArea()" [(ngModel)]="dimlargo"
+                      [ngModelOptions]="{standalone: true}" id="input-dimlargo"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-dimancho">Ancho(cm)</label>
+                    <input type="number" (keypress)="calcularVolumen(); calcularArea()" placeholder="0"
+                      (change)="calcularVolumen(); calcularArea()" [(ngModel)]="dimancho"
+                      [ngModelOptions]="{standalone: true}" id="input-dimancho"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-peso">Peso(kg.)</label>
+                    <input type="number" [(ngModel)]="peso" [ngModelOptions]="{standalone: true}" id="input-peso"
+                      placeholder="0" class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-area">Área(cm2)</label>
+                    <input readonly id="input-area" class="form-control form-control-alternative" type="number"
+                      [(ngModel)]="area" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-volumen">Volumen(cm3)</label>
+                    <input readonly id="input-volumen" class="form-control form-control-alternative" type="number"
+                      [(ngModel)]="volumen" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- RECETA -->
+            <h6 class="heading-small text-muted mb-4">Receta</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-espadre">Es padre
+                      <input type="checkbox" [(ngModel)]="espadre" [ngModelOptions]="{standalone: true}"
+                        id="input-espadre" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-eshijode">Es hijo de</label>
+                    <input type="text" [(ngModel)]="eshijode" [ngModelOptions]="{standalone: true}" id="input-eshijode"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-factorconversion">Factor de conversión</label>
+                    <input type="number" [(ngModel)]="factorconversion" [ngModelOptions]="{standalone: true}"
+                      id="input-factorconversion" class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-escompuesto">Es compuesto
+                      <input type="checkbox" [(ngModel)]="escompuesto" [ngModelOptions]="{standalone: true}"
+                        id="input-escompuesto" class="form-control-alternative">
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <hr class="my-4" /> -->
+            <!-- NOTA -->
+            <div class="pl-lg-4">
+              <div class="form-group">
+                <label>Notas</label>
+                <textarea rows="4" [(ngModel)]="nota" [ngModelOptions]="{standalone: true}"
+                  class="form-control form-control-alternative" placeholder="Notas del producto"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer bg-secondaryborder-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0"></h3>
+            </div>
+            <div class="col-4 text-right">
+              <button (click)="registrarProd()" [disabled]="loading == true"
+                class="btn btn-sm btn-success">Registrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
