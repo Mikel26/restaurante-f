@@ -18,7 +18,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { UserProfileComponent } from '././pages/user-profile/user-profile.component';
 import { AddonsComponent } from './pages/addons/addons.component';
 import { IncomesComponent } from './pages/incomes/incomes.component';
-import { SalesComponent } from './pages/sales/sales.component'
+import { SalesComponent } from './pages/sales/sales.component';
+import { ClientsComponent } from './pages/clients/clients.component';
+import { SuppliersComponent } from './pages/suppliers/suppliers.component'
 
 @NgModule({
   imports: [
@@ -38,7 +40,9 @@ import { SalesComponent } from './pages/sales/sales.component'
     UserProfileComponent,
     AddonsComponent,
     IncomesComponent,
-    SalesComponent
+    SalesComponent,
+    ClientsComponent,
+    SuppliersComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

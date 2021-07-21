@@ -24,10 +24,10 @@
               <h3 class="mb-0">Ingresar nueva categoría</h3>
             </div>
             <div class="col-2 text-right">
-              <button (click)="verTodoCat()" class="btn btn-sm btn-primary">Ver todos</button>
+              <button (click)="verTodoCat()" [disabled]="loading == true" class="btn btn-sm btn-primary">Ver todos</button>
             </div>
             <div class="col-2 text-right">
-              <button (click)="registrarCat()" class="btn btn-sm btn-success">Registrar</button>
+              <button (click)="registrarCat()" [disabled]="loading == true" class="btn btn-sm btn-success">Registrar</button>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="col-lg-2">
                   <div class="form-group">
                     <label class="form-control-label" for="input-abrv-cat">Abreviación</label>
-                    <input type="text" [(ngModel)]="abrv_cat" [ngModelOptions]="{standalone: true}" id="input-abrv-cat"
+                    <input type="text" [(ngModel)]="abrv_cat" minlength="1" maxlength="5" [ngModelOptions]="{standalone: true}" id="input-abrv-cat"
                       class="form-control form-control-alternative">
                   </div>
                 </div>
@@ -59,7 +59,7 @@
               <h3 class="mb-0"></h3>
             </div>
             <div class="col-4 text-right">
-              <button (click)="registrarCat()" class="btn btn-sm btn-success">Registrar</button>
+              <button (click)="registrarCat()" [disabled]="loading == true" class="btn btn-sm btn-success">Registrar</button>
             </div>
           </div>
         </div>
@@ -86,10 +86,10 @@
               <h3 class="mb-0">Ingresar nueva medida</h3>
             </div>
             <div class="col-2 text-right">
-              <button (click)="verTodoMed()" class="btn btn-sm btn-primary">Ver todos</button>
+              <button (click)="verTodoMed()" [disabled]="loading == true" class="btn btn-sm btn-primary">Ver todos</button>
             </div>
             <div class="col-2 text-right">
-              <button (click)="registrarMed()" class="btn btn-sm btn-success">Registrar</button>
+              <button (click)="registrarMed()" [disabled]="loading == true" class="btn btn-sm btn-success">Registrar</button>
             </div>
           </div>
         </div>
@@ -107,7 +107,7 @@
                 <div class="col-lg-2">
                   <div class="form-group">
                     <label class="form-control-label" for="input-abrv-med">Abreviación</label>
-                    <input type="text" [(ngModel)]="abrv_med" [ngModelOptions]="{standalone: true}" id="input-abrv-med"
+                    <input type="text" [(ngModel)]="abrv_med" minlength="1" maxlength="5" [ngModelOptions]="{standalone: true}" id="input-abrv-med"
                       class="form-control form-control-alternative">
                   </div>
                 </div>
@@ -121,7 +121,7 @@
               <h3 class="mb-0"></h3>
             </div>
             <div class="col-4 text-right">
-              <button (click)="registrarMed()" class="btn btn-sm btn-success">Registrar</button>
+              <button (click)="registrarMed()" [disabled]="loading == true" class="btn btn-sm btn-success">Registrar</button>
             </div>
           </div>
         </div>
@@ -148,10 +148,10 @@
               <h3 class="mb-0">Ingresar nueva marca</h3>
             </div>
             <div class="col-2 text-right">
-              <button (click)="verTodoMar()" class="btn btn-sm btn-primary">Ver todos</button>
+              <button (click)="verTodoMar()" [disabled]="loading == true" class="btn btn-sm btn-primary">Ver todos</button>
             </div>
             <div class="col-2 text-right">
-              <button (click)="registrarMar()" class="btn btn-sm btn-success">Registrar</button>
+              <button (click)="registrarMar()" [disabled]="loading == true" class="btn btn-sm btn-success">Registrar</button>
             </div>
           </div>
         </div>
@@ -176,7 +176,7 @@
               <h3 class="mb-0"></h3>
             </div>
             <div class="col-4 text-right">
-              <button (click)="registrarMar()" class="btn btn-sm btn-success">Registrar</button>
+              <button (click)="registrarMar()" [disabled]="loading == true" class="btn btn-sm btn-success">Registrar</button>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-<h1>Productos</h1>
+<h1>Proveedores</h1>
 <div class="row mt-4">
   <div class="col">
     <div class="card bg-default shadow">
@@ -10,16 +10,14 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">N°</th>
-              <th scope="col">Cod. Interno</th>
-              <th scope="col">Cod. Barra</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">PVP1</th>
-              <th scope="col">PVP2</th>
-              <th scope="col">Ex. Min.</th>
-              <th scope="col">Existencias</th>
-              <th scope="col">Ex. Max.</th>
-              <th scope="col">F. Modificación</th>
-              <th scope="col">Estado</th>
+              <th scope="col">Documento</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Empresa</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Correo electrónico</th>
+              <th scope="col">URL</th>
+              <th scope="col">Comentarios</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -33,54 +31,44 @@
                 </div>
               </th>
               <td>
-                {{ prod.codigointerno }}
+                {{ prod.ci_ruc }}
               </td>
               <td>
-                {{ prod.codigobarra }}
+                {{ prod.nombre }}
               </td>
               <td>
-                {{ prod.descripcion }}
+                {{ prod.empresa }}
               </td>
               <td>
-                {{ prod.pvp1 | currency: 'USD' }}
+                {{ prod.direccion }}
               </td>
               <td>
-                {{ prod.pvp2 | currency: 'USD' }}
+                {{ prod.telefono }}
               </td>
               <td>
-                {{ prod.exis_minima }}
+                {{ prod.email }}
               </td>
-              <td>
-                {{ prod.existencia }}
-              </td>
-              <td>
-                {{ prod.exis_maxima }}
-              </td>
-              <td>
-                {{ prod.fechamod |date: 'dd-MM-yyyy'}}
-              </td>
-              <ng-container *ngIf="prod.estado == true">
+              <ng-container *ngIf="prod.url != 'null' || prod.null != undefined; else elseBlock">
                 <td>
-                  <span class="badge badge-dot mr-4">
-                    <i class="bg-success"></i> Activo
-                  </span>
+                  {{ prod.url }}
                 </td>
               </ng-container>
-              <ng-container *ngIf="prod.estado == false">
+              <ng-template #elseBlock>
                 <td>
-                  <span class="badge badge-dot mr-4">
-                    <i class="bg-danger"></i> Inactivo
-                  </span>
+                  -
                 </td>
-              </ng-container>
+              </ng-template>
+              <td>
+                {{ prod.nota }}
+              </td>
               <td class="text-right">
                 <div ngbDropdown placement="bottom-right">
                   <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" (click)="editarProducto(prod)">Editar</a>
-                    <a class="dropdown-item" (click)="eliminarProducto(prod.codigointerno)">Eliminar</a>
+                    <a class="dropdown-item" (click)="editarProveedor(prod)">Editar</a>
+                    <a class="dropdown-item" (click)="eliminarProveedor(prod.id)">Eliminar</a>
                   </div>
                 </div>
               </td>

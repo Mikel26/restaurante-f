@@ -1,0 +1,5 @@
+<h1 mat-dialog-title>Buscar producto</h1>
+<div style="margin: 20px;">
+  <input matInput placeholder="Código interno" (keyup.enter)="onNoClick()" [(ngModel)]="codProd">
+</div>
+<button mat-stroked-button (click)="onNoClick()">Buscar</button>

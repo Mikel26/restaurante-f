@@ -38,8 +38,9 @@
                 <div class="col-lg-5">
                   <div class="form-group">
                     <label class="form-control-label" for="input-codigointerno">Cod. Interno</label>
-                    <input type="text" [(ngModel)]="codigointerno" [ngModelOptions]="{standalone: true}"
-                      id="input-codigointerno" class="form-control form-control-alternative">
+                    <input minlength="1" maxlength="15" (blur)="getProduct($event)" [disabled]="esEdit" type="text"
+                      [(ngModel)]="codigointerno" [ngModelOptions]="{standalone: true}" id="input-codigointerno"
+                      class="form-control form-control-alternative">
                   </div>
                 </div>
                 <div class="col-lg-5">
@@ -167,17 +168,24 @@
               <div class="row">
                 <div class="col-lg-2">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-codmedida">Medida</label>
-                    <select [(ngModel)]="codmedida" [ngModelOptions]="{standalone: true}">
-                      <option value=1 selected>kilos</option>
-                    </select>
+                    <label class="form-control-label" for="codmedida">Medida
+                      <select [(ngModel)]="codmedida" [ngModelOptions]="{standalone: true}">
+                        <option value=0>Seleccione...</option>
+                        <option *ngFor="let med of medidas; let i = index" value="{{ med.id }}">
+                          {{ i + 1 }} - {{ med.descripcion | titlecase }} ({{ med.abreviacion }})
+                        </option>
+                      </select>
+                    </label>
                   </div>
                 </div>
                 <div class="col-lg-2">
                   <div class="form-group">
                     <label class="form-control-label" for="categoria">Categoría
                       <select [(ngModel)]="idcategoria" [ngModelOptions]="{standalone: true}">
-                        <option value=1 selected>bebidas</option>
+                        <option value=0>Seleccione...</option>
+                        <option *ngFor="let cat of categorias; let i = index" value="{{ cat.id }}">
+                          {{ i + 1 }} - {{ cat.descripcion | titlecase }} ({{ cat.abreviacion }})
+                        </option>
                       </select>
                     </label>
                     <!-- <ng-select [items]="cars" bindLabel="name" bindValue="id" [(ngModel)]="selectedCar" [ngModelOptions]="{standalone: true}">
@@ -187,12 +195,16 @@
                 </div>
                 <div class="col-lg-2">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-codmarca">Marca</label>
+                    <label class="form-control-label" for="codmarca">Marca
+                      <select [(ngModel)]="codmarca" [ngModelOptions]="{standalone: true}">
+                        <option value=0>Seleccione...</option>
+                        <option *ngFor="let mar of marcas; let i = index" value="{{ mar.id }}">
+                          {{ i + 1 }} - {{ mar.descripcion | titlecase }}
+                        </option>
+                      </select>
+                    </label>
                     <!-- <input type="text" [(ngModel)]="codmarca" [ngModelOptions]="{standalone: true}" id="input-codmarca"
                       class="form-control form-control-alternative"> -->
-                    <select [(ngModel)]="codmarca" [ngModelOptions]="{standalone: true}">
-                      <option value=1 selected>Nacional</option>
-                    </select>
                   </div>
                 </div>
                 <div class="col-lg-2">

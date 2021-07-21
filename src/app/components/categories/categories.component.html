@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>
+  {{ data.title }}
+</h1>
+<div class="row mt-4">
+  <div class="col">
+    <div class="card bg-default shadow">
+      <!-- <div class="card-header bg-transparent border-0">
+        <h3 class="text-white mb-0">Productos</h3>
+      </div> -->
+      <div class="table-responsive">
+        <table class="table align-items-center table-dark table-flush">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">N°</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Abreviación</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prod of data.data; let i = index">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="mb-0 text-sm">{{ i + 1 }}</span>
+                  </div>
+                </div>
+              </th>
+              <td>
+                {{ prod.descripcion }}
+              </td>
+              <td>
+                {{ prod.abreviacion }}
+              </td>
+              <td class="text-right">
+                <div ngbDropdown placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" (click)="editar(prod)">Editar</a>
+                    <a class="dropdown-item" (click)="eliminar(prod.id)">Eliminar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

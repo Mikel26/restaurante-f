@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VerProductosComponent } from 'src/app/components/ver-productos/ver-productos.component';
+import { AddonsService } from 'src/app/services/addons.service';
 import { ProductoServicesService } from 'src/app/services/producto-services.service';
 import Swal from 'sweetalert2';
 
@@ -48,15 +49,37 @@ export class UserProfileComponent implements OnInit {
   diasxllegarproducto = 0
   produccionxfacturar = false
   fileUpload: any;
+  esEdit = false;
+  idProd;
+  categorias = []
+  marcas = []
+  medidas = []
 
 
   constructor(
     private prodServ: ProductoServicesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private addonServ: AddonsService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.addonServ.consultarCategorias().then((resp: any) => {
+      this.categorias = resp
+    }).catch((err) => {
+      console.log(err);
+    })
 
+    await this.addonServ.consultarMarcas().then((resp: any) => {
+      this.marcas = resp
+    }).catch((err) => {
+      console.log(err);
+    })
+
+    await this.addonServ.consultarMedidas().then((resp: any) => {
+      this.medidas = resp
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
   async registrarProd() {
@@ -99,15 +122,28 @@ export class UserProfileComponent implements OnInit {
     }
     console.log(data);
 
-    await this.prodServ.insertarProducto(data).then((resp: any) => {
-      console.log(resp);
-      if (resp.status == true) {
-        this.registroToast(resp.message)
-        this.vaciarFormulario()
-      }
-    }).catch((err) => {
-      console.log(err);
-    })
+    if (this.esEdit == true) {
+      await this.prodServ.modificarProducto(this.idProd, data).then((resp: any) => {
+        console.log(resp);
+        if (resp.status == true) {
+          this.registroToast(resp.message)
+          this.vaciarFormulario()
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+    } else {
+      await this.prodServ.insertarProducto(data).then((resp: any) => {
+        console.log(resp);
+        if (resp.status == true) {
+          this.registroToast(resp.message)
+          this.vaciarFormulario()
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+
   }
 
   calcularVolumen() {
@@ -177,6 +213,7 @@ export class UserProfileComponent implements OnInit {
     this.exis_minima = 0
     this.exis_maxima = 0
     this.diasxllegarproducto = 0
+    this.esEdit = false
   }
 
   setFormulario(prod: any) {
@@ -240,9 +277,28 @@ export class UserProfileComponent implements OnInit {
         console.log(resp);
         if (resp != undefined) {
           this.setFormulario(resp)
+          this.esEdit = true;
+          this.idProd = resp.id
         }
       })
     });
+  }
+
+  async getProduct(ev: any) {
+    console.log(ev.target.value);
+    var producto = []
+    if (ev.target.value != '') {
+      await this.prodServ.consultarProductoFiltro(ev.target.value).then((resp: any) => {
+        producto = resp
+        console.log(resp);
+        if (producto.length > 0) {
+          console.log('ya existe un producto con ese código');
+          Swal.fire('', 'Ya existe un producto con este código', 'warning').then(() => {
+            this.vaciarFormulario()
+          })
+        }
+      })
+    }
   }
 
 

@@ -1,1 +1,288 @@
-<p>incomes works!</p>
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 200px;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <!-- <div class="container-fluid d-flex align-items-center">
+      <div class="row">
+        <div class="col-lg-7 col-md-10">
+          <h1 class="display-2 text-white">Hello Jesse</h1>
+          <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+          <a href="#!" class="btn btn-info">Edit profile</a>
+        </div>
+      </div>
+    </div> -->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-content shadow">
+        <div class="card-header bg-secondary border-0">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h3 class="mb-0">Registrar una nueva compra</h3>
+            </div>
+            <div class="col-2 text-right">
+              <button class="btn btn-sm btn-primary" (click)="verCompras()">Ver todas</button>
+            </div>
+            <div class="col-2 text-right">
+              <button (click)="agregarProd()" class="btn btn-sm btn-success">Buscar producto</button>
+            </div>
+            <div class="col-2 text-right">
+              <button class="btn btn-sm btn-success" (click)="guardarCompra()">Registrar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <!-- <h6 class="heading-small text-muted mb-4">Información del producto</h6> -->
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-idprovee">Proveedor
+                      <select [(ngModel)]="idprovee" [ngModelOptions]="{standalone: true}">
+                        <option value=''>Seleccione...</option>
+                        <option *ngFor="let prov of proveedores; let i = index" value="{{ prov.id }}">
+                          {{ i + 1 }} - {{ prov.nombre }} ({{ prov.empresa }})
+                        </option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-formapago">Forma de pago
+                      <select [(ngModel)]="formapago" [ngModelOptions]="{standalone: true}">
+                        <option value=''>Seleccione...</option>
+                        <option *ngFor="let fp of formasPago; let i = index" value="{{ fp.codigo }}">
+                          {{ i + 1 }} - {{ fp.descripcion }}
+                        </option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-tipodcosri">Tipo documento SRI
+                      <select [(ngModel)]="tipodcosri" [ngModelOptions]="{standalone: true}">
+                        <option value=0>Seleccione...</option>
+                        <option *ngFor="let d of dctosSRI; let i = index" value="{{ d.id }}">
+                          {{ i + 1 }} - {{ d.descripcion }}
+                        </option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <label class="form-control-label">No. Factura proveedor</label>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2">
+                    <input type="number" [(ngModel)]="serie1" [ngModelOptions]="{standalone: true}" id="input-serie1"
+                      class="form-control form-control-alternative">
+                  </div>
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                      <input type="number" [(ngModel)]="serie2" [ngModelOptions]="{standalone: true}" id="input-serie2"
+                        class="form-control form-control-alternative">
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <input type="number" [(ngModel)]="idpreimp" [ngModelOptions]="{standalone: true}"
+                        id="input-idpreimp" class="form-control form-control-alternative">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pl-lg-4">
+              <div class="form-group">
+                <label>Comentario</label>
+                <textarea rows="2" [(ngModel)]="nota" [ngModelOptions]="{standalone: true}"
+                  class="form-control form-control-alternative" placeholder="Comentarios sobre la compra"></textarea>
+              </div>
+            </div>
+            <div *ngIf="productos.length >= 5" class="row">
+              <div class="col-lg-6">
+                <button class="btn btn-sm btn-success" (click)="limpiarTabla()">Vaciar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-body" *ngIf="productos.length > 0">
+          <div class="row mt-4">
+            <div class="col">
+              <div class="card bg-default shadow">
+                <div class="table-responsive">
+                  <table class="table align-items-center table-dark table-flush">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">Cant. Fact.</th>
+                        <th scope="col">Cant. Rec.</th>
+                        <th scope="col">PVP Fact.</th>
+                        <th scope="col">Descto.</th>
+                        <th scope="col">PVP Descto.</th>
+                        <th scope="col">Subtotal 1</th>
+                        <th scope="col">Subtotal 2</th>
+                        <th scope="col">IVA</th>
+                        <th scope="col">No. Lote</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let prod of productos; let i = index">
+                        <th scope="row">
+                          <div class="media align-items-center">
+                            <div class="media-body">
+                              <span class="mb-0 text-sm">{{ i + 1 }}</span>
+                            </div>
+                          </div>
+                        </th>
+                        <td>
+                          {{ prod.codigointerno }}
+                        </td>
+                        <td>
+                          {{ prod.descripcion }}
+                        </td>
+                        <td>
+                          {{ prod.medida }}
+                        </td>
+                        <td>
+                          <input type="number" [(ngModel)]="prod.cantidadF">
+                        </td>
+                        <td>
+                          <input type="number" [(ngModel)]="prod.cantidadR">
+                        </td>
+                        <td>
+                          <input type="number" [(ngModel)]="prod.pvpF"> $
+                        </td>
+                        <td>
+                          <!-- <input type="number" [(ngModel)]="prod.dscto"> -->
+                          <span class="valuePadding">
+                            <input type="text" minlength="1" maxlength="7" [(ngModel)]="prod.dscto"> %
+                          </span>
+                        </td>
+                        <td>
+                          <!-- pvpDscto -->
+                          {{ (prod.pvpF * (prod.dscto / 100)) * prod.cantidadF | currency: 'USD' }}
+                        </td>
+                        <td>
+                          <!-- subtotal1 -->
+                          {{ prod.pvpF * prod.cantidadF | currency: 'USD' }}
+                        </td>
+                        <td>
+                          <!-- subtotal2 -->
+                          {{ prod.pvpF * prod.cantidadF - ((prod.pvpF * (prod.dscto / 100)) * prod.cantidadF) | currency: 'USD' }}
+                        </td>
+                        <td>
+                          <input type="checkbox" [(ngModel)]="prod.tieneiva">
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="prod.lote">
+                        </td>
+                        <td class="text-right">
+                          <a class="btn btn-sm btn-icon-only text-light">
+                            <i class="fas fa-times"></i>
+                          </a>
+                          <!-- <div ngbDropdown placement="bottom-right">
+                            <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                              <a class="dropdown-item" (click)="editar(prod)">Editar</a>
+                              <a class="dropdown-item" (click)="eliminar(prod.id)">Eliminar</a>
+                            </div>
+                          </div> -->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container" *ngIf="productos.length > 0">
+          <div class="row">
+            <div class="col-8">&nbsp;</div>
+            <div class="col-2">
+              <label>Subtotal 1: </label>
+            </div>
+            <div class="col-2">
+              {{ getSubtotal1() | currency: 'USD' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">&nbsp;</div>
+            <div class="col-2">
+              <label>Descuento:</label>
+              &nbsp;
+              <button type="button" class="btn btn-default btn-sm" (click)="aplicarDscto()">%</button>
+            </div>
+            <div class="col-2">
+              {{ getDscto() | currency: 'USD' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">&nbsp;</div>
+            <div class="col-2">
+              <label>Subtotal 2: </label>
+            </div>
+            <div class="col-2">
+              {{ getSubtotal2() | currency: 'USD' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">&nbsp;</div>
+            <div class="col-2">
+              <label>Grava {{IVA | percent}}: </label>
+            </div>
+            <div class="col-2">
+              {{ getGravaCon() | currency: 'USD' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">&nbsp;</div>
+            <div class="col-2">
+              <label>Grava 0%: </label>
+            </div>
+            <div class="col-2">
+              {{ getGravaSin() | currency: 'USD' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">&nbsp;</div>
+            <div class="col-2">
+              <label>IVA ({{IVA | percent}}): </label>
+            </div>
+            <div class="col-2">
+              {{ getIVA() | currency: 'USD' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">&nbsp;</div>
+            <div class="col-2">
+              <label class="text-danger" style="font-size: 24px; font-weight: bold;">
+                {{ getTotal() | currency: 'USD' }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-secondaryborder-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              &nbsp;
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-success" (click)="guardarCompra()">Registrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

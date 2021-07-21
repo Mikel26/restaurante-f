@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Seleccionar descuento</h1>
+<div style="margin: 20px;">
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="dscto">
+    <mat-radio-button value="1">Valor fijo ($)</mat-radio-button>
+    <mat-radio-button value="2">Porcentaje (%)</mat-radio-button>
+  </mat-radio-group>
+  <!-- <input placeholder="Código interno" (keyup.enter)="onNoClick()" [(ngModel)]="codProd"> -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <!-- <mat-label>Favorite food</mat-label> -->
+    <input matInput placeholder="Descuento" (keyup.enter)="onNoClick()" [(ngModel)]="valorDscto">
+  </mat-form-field>
+</div>
+<button mat-stroked-button (click)="onNoClick()">Aceptar</button>

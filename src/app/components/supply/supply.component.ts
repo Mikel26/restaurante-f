@@ -1,34 +1,31 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductoServicesService } from 'src/app/services/producto-services.service';
+import { SuppliersService } from 'src/app/services/suppliers.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-ver-productos',
-  templateUrl: './ver-productos.component.html',
-  styleUrls: ['./ver-productos.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-supply',
+  templateUrl: './supply.component.html',
+  styleUrls: ['./supply.component.scss']
 })
-export class VerProductosComponent implements OnInit {
-  public productos = []
-  public loading = true
+export class SupplyComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<VerProductosComponent>,
-    private prodServ: ProductoServicesService
+    public dialogRef: MatDialogRef<SupplyComponent>,
+    private suppServ: SuppliersService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log(this.data);
   }
 
-  editarProducto(prod: any) {
-    this.dialogRef.close(prod)
+  editarProveedor(prov: any) {
+    this.dialogRef.close(prov)
   }
 
-  async eliminarProducto(idProd: any) {
-    await this.prodServ.eliminarProducto(idProd).then((resp: any) => {
+  async eliminarProveedor(idProv: any) {
+    await this.suppServ.eliminarProveedor(idProv).then((resp: any) => {
       console.log(resp);
       if (resp.status == true) {
         this.mensajeToast(resp.message)

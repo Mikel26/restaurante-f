@@ -12,12 +12,14 @@ export const ROUTES: RouteInfo[] = [
   // { path: '/maps', title: 'Mapas',  icon:'ni-pin-3 text-orange', class: '' },
   { path: '/product', title: 'Productos', icon: 'ni-box-2 text-yellow', class: '' },
   { path: '/addons', title: 'Complementos', icon: 'ni-tag text-orange', class: '' },
+  { path: '/clients', title: 'Clientes', icon: 'ni-circle-08', class: '' },
+  { path: '/suppliers', title: 'Proveedores', icon: 'ni-tie-bow text-default', class: '' },
   { path: '/incomes', title: 'Compras', icon: 'ni-shop text-success', class: '' },
   { path: '/sales', title: 'Ventas', icon: 'ni-cart text-red', class: '' },
   // { path: '/icons', title: 'Iconos', icon: 'ni-planet text-blue', class: '' },
   // { path: '/tables', title: 'Tablas', icon: 'ni-bullet-list-67 text-red', class: '' },
   { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '' },
-  { path: '/register', title: 'Registro', icon: 'ni-circle-08 text-pink', class: '' }
+  { path: '/register', title: 'Registro', icon: 'ni-badge text-pink', class: '' }
 ];
 
 @Component({

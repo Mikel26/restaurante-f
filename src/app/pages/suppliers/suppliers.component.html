@@ -1,0 +1,151 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 200px;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <!-- <div class="container-fluid d-flex align-items-center">
+      <div class="row">
+        <div class="col-lg-7 col-md-10">
+          <h1 class="display-2 text-white">Hello Jesse</h1>
+          <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+          <a href="#!" class="btn btn-info">Edit profile</a>
+        </div>
+      </div>
+    </div> -->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-content shadow">
+        <div class="card-header bg-secondary border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Ingresar nuevo proveedor</h3>
+            </div>
+            <div class="col-2 text-right">
+              <button (click)="verTodo()" [disabled]="loading == true" class="btn btn-sm btn-primary">Ver todos</button>
+            </div>
+            <div class="col-2 text-right">
+              <button (click)="registrarProv()" [disabled]="loading == true"
+                class="btn btn-sm btn-success">Registrar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <!-- <h6 class="heading-small text-muted mb-4">Información del producto</h6> -->
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-ci_ruc">Documento</label>
+                    <input minlength="1" maxlength="15" [disabled]="esEdit" type="text"
+                      placeholder="Documento de identificación" [(ngModel)]="ci_ruc"
+                      [ngModelOptions]="{standalone: true}" id="input-ci_ruc"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-codigobarra">Tipo de Documento
+                      <select [(ngModel)]="tipodoc" [ngModelOptions]="{standalone: true}">
+                        <option value=''>Seleccione...</option>
+                        <option *ngFor="let doc of listaDoc; let i = index" value="{{ doc.id }}">
+                          {{ i + 1 }} - {{ doc.nombre }}
+                        </option>
+                      </select>
+                    </label>
+
+
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-empresa">Empresa</label>
+                    <input type="text" [(ngModel)]="empresa" [ngModelOptions]="{standalone: true}"
+                      placeholder="Nombre de la empresa" id="input-empresa"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-nombre">Nombre o Razón Social</label>
+                    <input type="text" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}"
+                      placeholder="Nombre del proveedor" id="input-nombre"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-direccion">Dirección</label>
+                    <input type="text" [(ngModel)]="direccion" placeholder="Dirección del proveedor"
+                      [ngModelOptions]="{standalone: true}" id="input-direccion"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-telefono">Teléfono</label>
+                    <input type="tel" [(ngModel)]="telefono" placeholder="Teléfono del proveedor"
+                      [ngModelOptions]="{standalone: true}" id="input-telefono"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-contacto">Contactos</label>
+                    <input type="text" placeholder="Contacto del proveedor" [(ngModel)]="contacto"
+                      [ngModelOptions]="{standalone: true}" id="input-contacto"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-url">URL</label>
+                    <input type="url" placeholder="URL del proveedor" [(ngModel)]="url"
+                      [ngModelOptions]="{standalone: true}" id="input-url"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Correo Electrónico</label>
+                    <input type="email" placeholder="Correo electrónico del proveedor" [(ngModel)]="email"
+                      [ngModelOptions]="{standalone: true}" id="input-email"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label>Comentario</label>
+                    <textarea [(ngModel)]="nota" [ngModelOptions]="{standalone: true}"
+                      class="form-control form-control-alternative"
+                      placeholder="Comentarios sobre el proveedor"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer bg-secondaryborder-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0"></h3>
+            </div>
+            <div class="col-4 text-right">
+              <button (click)="registrarProv()" [disabled]="loading == true"
+                class="btn btn-sm btn-success">Registrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
